@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import DatabaseConnection;
 
 public class ReporteBController {
 
@@ -66,13 +67,10 @@ public class ReporteBController {
 
     private double totalComprasRealizadas(String idCliente, String primerafecha, String segundafecha) {
         double totalGastado = 0.0;
-        String url = "jdbc:sqlserver://localhost\\MSSQLSERVER:1433;databaseName=BCN;encrypt=true;trustServerCertificate=true;";
-        String user = "root";
-        String password = "password";
 
         String query = "SELECT SUM(monto_total) AS total FROM Compra WHERE id_cliente = ? AND MONTH(fecha_compra) = ? AND YEAR(fecha_compra) = ?";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
+        try (Connection conn = DatabaseConnection.getConnection();;
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, Integer.parseInt(idCliente));
