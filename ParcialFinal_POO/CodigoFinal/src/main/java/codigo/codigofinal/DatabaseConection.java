@@ -1,4 +1,4 @@
-package codigo.codigo;
+package codigo.codigofinal;
 
 import java.sql.Connection; //00043823 Importo  de la clase sql Connection
 import java.sql.DriverManager; //00043823 Importo  de la clase sql DriverManager

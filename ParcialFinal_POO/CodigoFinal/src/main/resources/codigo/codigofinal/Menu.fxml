@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hello">
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.BancoController">
 
   <ImageView fx:id="backgroundImage" fitHeight="1000" fitWidth="1268" opacity="0.69">
     <image>
-      <Image url="@../Imagenes/logo.jpg" />
+      <Image url="@../../Imagenes/logo.jpg" />
     </image>
   </ImageView>
 

@@ -30,6 +30,7 @@ CREATE TABLE Cliente (
     direccion VARCHAR(255),
     telefono VARCHAR(15)
 );
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
 
 CREATE TABLE Tarjeta (
     id_tarjeta INT PRIMARY KEY IDENTITY(1,1),
@@ -40,6 +41,7 @@ CREATE TABLE Tarjeta (
     facilitador VARCHAR(20) NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
 
 CREATE TABLE Compra (
     id_compra INT PRIMARY KEY IDENTITY(1,1),
@@ -51,3 +53,4 @@ CREATE TABLE Compra (
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
     FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id_tarjeta)
 );
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
