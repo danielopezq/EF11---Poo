@@ -13,14 +13,12 @@ GO --00043823 Esto se usa para que se ejecute la query y luego siga con las dem�
 USE BCN; --00043823 Me dirijo a la base de datos llamada BCN
 GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
 
--- Crear usuario en la base de datos
 IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'ParcialFinal') --00043823 Primero verifico si no existe el usuario llamado ParcialFinal en la base de datos BCN
 BEGIN --00043823 Se utiliza la palabra reservada para indicar donde se inicia una serie de instrucciones
     CREATE USER ParcialFinal FOR LOGIN ParcialFinal; --00043823 Si la condición anterior se cumple entonces creo el usuario llamado ParcialFinal para la base de datos BCN
 END --00043823 Se utiliza la palabra reservada para indicar donde se termina una serie de instrucciones
 GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
 
--- Asignar roles al usuario
 EXEC sp_addrolemember 'db_datareader', 'ParcialFinal'; --00043823 Asigno el rol de lector al usuario ParcialFinal en la base de datos
 EXEC sp_addrolemember 'db_datawriter', 'ParcialFinal'; --00043823 Asigno el rol de escritor al usuario ParcialFinal en la base de datos
 GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
