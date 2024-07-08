@@ -86,7 +86,7 @@ public class ReporteAController {
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, Integer.parseInt(idCliente));
-            stmt.setString(2, primerafecha); 
+            stmt.setString(2, primerafecha);
             stmt.setString(3, segundafecha);
 
             ResultSet rs = stmt.executeQuery();
