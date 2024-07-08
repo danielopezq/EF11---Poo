@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.BancoController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.BancoController">
 
   <ImageView fx:id="backgroundImage" fitHeight="1000" fitWidth="1268" opacity="0.69">
     <image>
@@ -26,21 +26,22 @@
         <Insets />
       </VBox.margin>
       <font>
-        <Font name="Arial" size="100.0" />
+        <Font name="Arial" size="36.0" />
       </font></Label>
     <Label style="-fx-font-size: 24px; -fx-text-fill: #666;" text="Seleccione la opción que desea realizar:">
       <VBox.margin>
-        <Insets bottom="100.0" />
+        <Insets />
       </VBox.margin></Label>
-    <Button onAction="#handleReporteA" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-background-radius: 5;" text="Reporte A">
+    <Button onAction="#handleReporteA" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 5;" text="Reporte A">
       <VBox.margin>
         <Insets />
       </VBox.margin></Button>
-    <Button onAction="#handleReporteB" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-background-radius: 5;" text="Reporte B" />
-    <Button onAction="#handleReporteC" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-background-radius: 5;" text="Reporte C" />
-    <Button onAction="#handleReporteD" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-background-radius: 5;" text="Reporte D">
+    <Button onAction="#handleReporteB" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 5;" text="Reporte B" />
+    <Button onAction="#handleReporteC" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 5;" text="Reporte C" />
+    <Button onAction="#handleReporteD" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 5;" text="Reporte D">
       <VBox.margin>
-        <Insets bottom="250.0" />
+        <Insets bottom="100.0" />
       </VBox.margin></Button>
+    <Button onAction="#closeApplication" style="-fx-font-size: 18px; -fx-padding: 10 20 10 20; -fx-background-color: #FF0000; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 5;" text="Cerrar Programa" />
   </VBox>
 </StackPane>

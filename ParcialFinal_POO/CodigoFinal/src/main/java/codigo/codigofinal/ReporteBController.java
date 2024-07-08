@@ -1,11 +1,16 @@
 package codigo.codigofinal;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
+import javafx.scene.layout.StackPane;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
@@ -31,6 +36,9 @@ public class ReporteBController {
     private Button generarReporteButton;
 
     @FXML
+    private StackPane rootPane;
+
+    @FXML
     public void initialize() {
         generarReporteButton.setOnAction(e -> {
             String idCliente = idClienteField.getText();
@@ -54,13 +62,20 @@ public class ReporteBController {
                 "Total Gastado: $" + totalGastado + "\n" +
                 "Generado en: " + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n";
 
-        String fileName = System.getProperty("user.home") + "/Desktop/ReporteB" + timestamp + ".txt";
+        String desktopPath = System.getProperty("user.home") + "/Desktop";
+        String fileName = desktopPath + "/ReporteB" + timestamp + ".txt";
+
+        File desktopDir = new File(desktopPath);
+        if (!desktopDir.exists()) {
+            desktopDir.mkdirs();
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(reportContent);
             showAlert("Reporte Generado", "El reporte se ha generado y está ubicado en su escritorio:\n" + fileName);
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error", "Ocurrió un error al generar el reporte. Revise los datos ingresados");
+            showAlert("Error", "Ocurrió un error al generar el reporte. Revise los datos ingresados: " + e.getMessage());
         }
     }
 
@@ -72,20 +87,26 @@ public class ReporteBController {
 
         String query = "SELECT SUM(monto_total) AS total FROM Compra WHERE id_cliente = ? AND MONTH(fecha_compra) = ? AND YEAR(fecha_compra) = ?";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-            stmt.setInt(1, Integer.parseInt(idCliente));
-            stmt.setInt(2, Integer.parseInt(mes));
-            stmt.setInt(3, Integer.parseInt(ano));
+            try (Connection conn = DriverManager.getConnection(url, user, password);
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            ResultSet rs = stmt.executeQuery();
+                stmt.setInt(1, Integer.parseInt(idCliente));
+                stmt.setInt(2, Integer.parseInt(mes));
+                stmt.setInt(3, Integer.parseInt(ano));
 
-            if (rs.next()) {
-                totalGastado = rs.getDouble("total");
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    totalGastado = rs.getDouble("total");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -98,5 +119,30 @@ public class ReporteBController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void returnToMainMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Banco Nacional de Nlogonia");
+            stage.setScene(new Scene(root, 1268, 1000));
+            stage.setResizable(false);
+            stage.show();
+            closeCurrentWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void closeApplication() {
+        System.exit(0);
+    }
+
+    private void closeCurrentWindow() {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 }

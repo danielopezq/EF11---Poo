@@ -17,8 +17,11 @@ ext {
   junitVersion = '5.10.0'
 }
 
-sourceCompatibility = '22'
-targetCompatibility = '22'
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(22)
+  }
+}
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
@@ -26,22 +29,22 @@ tasks.withType(JavaCompile) {
 
 application {
   mainModule = 'codigo.codigofinal'
-  mainClass = 'codigo.codigofinal.HelloApplication'
+  mainClass = 'codigo.codigofinal.BancoApp'
 }
 
 javafx {
   version = '22-ea+11'
-  modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.base','javafx.graphics','javafx.media']
+  modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.base', 'javafx.graphics', 'javafx.media']
 }
 
 dependencies {
-
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
 test {
-useJUnitPlatform()}
+  useJUnitPlatform()
+}
 
 jlink {
   imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
