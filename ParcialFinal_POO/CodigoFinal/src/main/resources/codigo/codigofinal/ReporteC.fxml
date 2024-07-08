@@ -8,11 +8,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.ReporteCController">
+<StackPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.ReporteCController">
     <children>
         <ImageView fitHeight="1000.0" fitWidth="1268.0" opacity="0.69">
             <image>
@@ -40,6 +41,12 @@
                     <RowConstraints />
                 </rowConstraints>
             </GridPane>
+         <HBox alignment="CENTER" spacing="20.0">
+            <children>
+               <Button onAction="#returnToMainMenu" style="-fx-font-size: 18px; -fx-pref-width: 250px; -fx-pref-height: 50px; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2;" text="Volver al Menú" />
+               <Button onAction="#closeApplication" style="-fx-font-size: 18px; -fx-pref-width: 250px; -fx-pref-height: 50px; -fx-background-color: #FF0000; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2;" text="Cerrar Programa" />
+            </children>
+         </HBox>
         </VBox>
     </children>
 </StackPane>

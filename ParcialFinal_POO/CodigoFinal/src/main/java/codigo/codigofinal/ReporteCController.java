@@ -1,6 +1,11 @@
 package codigo.codigofinal;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -23,6 +28,9 @@ public class ReporteCController {
 
     @FXML
     private Button generarReporteButton; //00140323 Genera un boton que al darle clic generara el reporte.
+
+    @FXML
+    private StackPane rootPane;
 
     @FXML
     public void initialize() {
@@ -85,7 +93,8 @@ public class ReporteCController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");  //00140323 Aqui se define el formato de fecha y hora.
         String timestamp = now.format(formatter);  //00140323 Pone la fecha y hora actual en el formato que usamos.
 
-        String reportContent = "Tarjetas correspondientes al cliente " + nombreCliente + ":\n" +  //00140323 Aca vemos lo que se imprimira en el reporteC.txt
+        String reportContent = "Reporte C:\n" +
+                "Tarjetas correspondientes al cliente " + nombreCliente + ":\n" +  //00140323 Aca vemos lo que se imprimira en el reporteC.txt
                 "Tarjetas de crédito:\n" +
                 (tarjetasCredito.length() > 0 ? tarjetasCredito.toString() : "N/A\n") +  //00140323 Muestra las tarjetas de credito relacionadas al cliente, si no hay imprime N/A.
                 "Tarjetas de débito:\n" +
@@ -109,4 +118,33 @@ public class ReporteCController {
         alert.setContentText(content);  //00140323 Aqui se establece el mensaje de la alerta.
         alert.showAndWait();  //00140323 Aqui se le muestra la alerta al usuario.
     }
+
+    @FXML
+    public void returnToMainMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Banco Nacional de Nlogonia");
+            stage.setScene(new Scene(root, 1268, 1000));
+            stage.setResizable(false);
+            stage.show();
+            closeCurrentWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void closeApplication() {
+        System.exit(0);
+    }
+
+    private void closeCurrentWindow() {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
+    }
+
 }
+
+
+
