@@ -13,7 +13,16 @@ public class BancoController {
     //Las otras opciones se agregan ya cuando mis compañeros hagan sus respectivos Fxml, pero todo sigue la misma logica
     @FXML
     public void handleReporteA() {
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("ReporteA.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Generar Reporte A");
+            stage.setScene(new Scene(root, 1268, 1000));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
