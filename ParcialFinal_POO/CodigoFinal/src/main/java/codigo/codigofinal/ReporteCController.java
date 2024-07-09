@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ReporteCController {
+    private DatabaseConnection db;
 
     @FXML
     private TextField idClienteField; //00140323 Sirve para generar un espacio de texto donde se escribira el ID del cliente.
@@ -45,10 +46,6 @@ public class ReporteCController {
         StringBuilder tarjetasCredito = new StringBuilder();  //00140323 Sirve para almacenar las tarjetas de credito del cliente.
         StringBuilder tarjetasDebito = new StringBuilder();  //00140323 Sirve para almacenar las tarjetas de debito del cliente.
 
-        String url = "jdbc:sqlserver://localhost\\MSSQLSERVER:1433;databaseName=BCN;encrypt=true;trustServerCertificate=true;";  //00140323 Esta es la URL correspondiente a la conexion de la base de datos.
-        String user = "root";  //00140323 Este es el usuario para la conexion a la base de datos.
-        String password = "password";  //00140323 Esta es la contraseña para la conexion a la base de datos.
-
         String query = "DECLARE @ClienteID INT = ?; " +  //00140323 Esta es la consulta que se encarga de obtener las tarjetas en el formato que requeria el reporte C de la guia.
                 "SELECT " +
                 "    c.nombre_completo AS NombreCliente, " +
@@ -66,7 +63,7 @@ public class ReporteCController {
                 "ORDER BY " +
                 "    t.tipo_tarjeta, t.numero_tarjeta;";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);  //00140323 Sirve para conectarse a la base de datos.
+        try (Connection conn = db.getConnection();  //00140323 Sirve para conectarse a la base de datos.
              PreparedStatement stmt = conn.prepareStatement(query)) {  //00140323 Sirve para preparar la consulta SQL.
 
             stmt.setInt(1, Integer.parseInt(idCliente));  //00140323 Sirve para poner el parametro, que es idCliente, en la consulta.
