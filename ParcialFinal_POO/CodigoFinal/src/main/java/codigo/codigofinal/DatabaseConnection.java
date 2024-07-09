@@ -1,4 +1,4 @@
-package codigo.codigofinal;
+package codigo.codigofinal; // 00043823 Paquete donde se encuentra la clase DatabaseConnection
 
 import java.sql.Connection; //00043823 Importo  de la clase sql Connection
 import java.sql.DriverManager; //00043823 Importo  de la clase sql DriverManager
