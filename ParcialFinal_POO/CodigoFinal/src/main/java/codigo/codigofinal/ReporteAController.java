@@ -50,35 +50,36 @@ public class ReporteAController { // 00043823 Nombre de la clase.
         });
     }
 
-    private void generarReporte(String idCliente, String primerafecha, String segundafecha) { // 00043823
-        List<Compra> compras = comprasRealizadasEnPeriodo(idCliente, primerafecha, segundafecha); // 00043823
+    private void generarReporte(String idCliente, String primerafecha, String segundafecha) { // 00043823 Metodo generarReporte con sus parametros.
+        List<Compra> compras = comprasRealizadasEnPeriodo(idCliente, primerafecha, segundafecha); // 00043823 Se crea e inicializa una lista de tipo Compras que guardará a las compras realizadas en ese intervalo de fechas usando el metodo comprasRealizadasEnPeriodo.
 
-        LocalDateTime now = LocalDateTime.now(); // 00043823
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"); // 00043823
-        String timestamp = now.format(formatter); // 00043823
+        LocalDateTime now = LocalDateTime.now(); // 00043823 Se obtiene la fecha y hora actuales.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"); // 00043823 Se le da el formato a la fecha y hora.
+        String timestamp = now.format(formatter); // 00043823 Se formatea la fecha y hora.
 
-        String reportContent = "Reporte A\n" +
-                "ID Cliente: " + idCliente + "\n" +
-                "Primera Fecha: " + primerafecha + "\n" +
-                "Segunda Fecha: " + segundafecha + "\n" +
-                "Generado en: " + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n\n" +
-                "Detalle de Compras:\n"; // 00043823
+        String reportContent = "Reporte A\n" + // 00043823 Se crea e inicializa la variable de tipo String con el contenido del reporte.
+                "ID Cliente: " + idCliente + "\n" + // 00043823 Agrega el id del cliente.
+                "Primera Fecha: " + primerafecha + "\n" + // 00043823 Agrega la primera fecha.
+                "Segunda Fecha: " + segundafecha + "\n" + // 00043823 Agrega la segunda fecha.
+                "Generado en: " + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n\n" + // 00043823 Agrega la fecha y hora que se ha generado el reporte.
+                "Detalle de Compras:\n"; // 00043823 Se agrega el detalle de las compras.
 
-        for (Compra compra : compras) {
-            reportContent += "ID Compra: " + compra.getIdCompra() + "\n" +
-                    "Fecha Compra: " + compra.getFechaCompra() + "\n" +
-                    "Monto Total: $" + compra.getMontoTotal() + "\n" +
-                    "Descripción: " + compra.getDescripcion() + "\n" +
-                    "------\n"; // 00043823
+        for (Compra compra : compras) { // 00043823 Se inicia un bucle For que recorrerá todos los elementos de la lista compras.
+            reportContent += "ID Compra: " + compra.getIdCompra() + "\n" + // 00043823 Se agrega el id de la compra.
+                    "Fecha Compra: " + compra.getFechaCompra() + "\n" + // 00043823 Se agrega la fecha de la compra.
+                    "Monto Total: $" + compra.getMontoTotal() + "\n" + // 00043823 Se agrega el monto total de la compra.
+                    "Descripción: " + compra.getDescripcion() + "\n" + // 00043823 Se agrega la descripcion de la compra.
+                    "------\n"; // 00043823 Se agrega el formato de unas lineas para hacer la división entre compras.
         }
 
-        String fileName = System.getProperty("user.home") + "/Desktop/ReporteA" + timestamp + ".txt"; // 00043823
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) { // 00043823
-            writer.write(reportContent.toString()); // 00043823
-            showAlert("Reporte Generado", "El reporte se ha generado y está ubicado en su escritorio:\n" + fileName); // 00043823
-        } catch (IOException e) { // 00043823
-            e.printStackTrace(); // 00043823
-            showAlert("Error", "Ocurrió un error al generar el reporte. Revise los datos ingresados"); // 00043823
+        String desktopPath = System.getProperty("user.home") + "/Desktop"; // 00043823 Obtiene la ruta del escritorio.
+        String fileName = desktopPath + "/ReporteB" + timestamp + ".txt"; // 00043823 Define el nombre del archivo del reporte.
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) { // 00043823 Se crea un BufferedWriter para poder escribir en el archivo.
+            writer.write(reportContent.toString()); // 00043823 Se escribe el contenido en el archivo.
+            showAlert("Reporte Generado", "El reporte se ha generado y está ubicado en su escritorio:\n" + fileName); // 00043823 Se muestra una alerta si el archivo se genero exitosamente.
+        } catch (IOException e) { // 00043823 Captura excepciones de entrada/salida.
+            e.printStackTrace(); // 00043823 Imprime el stack trace de la excepcion en dado caso falle lo que está en el try.
+            showAlert("Error", "Ocurrió un error al generar el reporte. Revise los datos ingresados"); // 00043823 Se muestra una alerta si el archivo no se pudo generar exitosamente.
         }
     }
 
