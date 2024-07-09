@@ -22,25 +22,25 @@ import java.time.format.DateTimeFormatter; // 00043823
 import java.util.ArrayList; // 00043823
 import java.util.List; // 00043823
 
-public class ReporteAController { // 00043823
+public class ReporteAController { // 00043823 Nombre de la clase.
     private DatabaseConnection db; // 00043823 Variable de tipo DatabaseConnection para poder acceder al metodo getConnection() de dicha clase.
 
-    @FXML
+    @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     private TextField idClienteField; // 00043823
 
-    @FXML
+    @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     private TextField primerafechaField; // 00043823
 
-    @FXML
+    @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     private TextField segundafechaField; // 00043823
 
-    @FXML
+    @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     private Button generarReporteButton; // 00043823
 
     @FXML // 00043823 Anotacion para indicar que el siguiente elemento es inyectado por FXML.
     private StackPane rootPane; // 00043823 Pane que actua como contenedor principal.
 
-    @FXML // 00043823
+    @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     public void initialize() { // 00043823
         generarReporteButton.setOnAction(e -> { // 00043823
             String idCliente = idClienteField.getText(); // 00043823
@@ -82,34 +82,34 @@ public class ReporteAController { // 00043823
         }
     }
 
-    private List<Compra> comprasRealizadasEnPeriodo(String idCliente, String primerafecha, String segundafecha) { // 00043823
-        List<Compra> compras = new ArrayList<>(); // 00043823
+    private List<Compra> comprasRealizadasEnPeriodo(String idCliente, String primerafecha, String segundafecha) { // 00043823 Metodo comprasRealizadasEnPeriodo con los parametros que el usuario introducirá en la ventana.
+        List<Compra> compras = new ArrayList<>(); // 00043823 Se crea la variable compras que será una lista de tipo de la clase Compras.
 
-        String query = "SELECT id_compra, fecha_compra, monto_total, descripcion FROM Compra WHERE id_cliente = ? AND fecha_compra BETWEEN ? AND ?"; // 00043823
+        String query = "SELECT id_compra, fecha_compra, monto_total, descripcion FROM Compra WHERE id_cliente = ? AND fecha_compra BETWEEN ? AND ?"; // 00043823 Se define la consulta que nos dará el resultado que queremos, así como en SQL Server.
 
-        try (Connection conn = db.getConnection(); // 00043823
-             PreparedStatement stmt = conn.prepareStatement(query)) { // 00043823
+        try (Connection conn = db.getConnection(); // 00043823 Se inicia el try y se crea la variable de tipo Connection que tendrá el método getConnection() de la clase DatabaseConnection.
+             PreparedStatement stmt = conn.prepareStatement(query)) { // 00043823 Prepara la consulta SQL.
 
-            stmt.setInt(1, Integer.parseInt(idCliente)); // 00043823
-            stmt.setString(2, primerafecha); // 00043823
-            stmt.setString(3, segundafecha); // 00043823
+            stmt.setInt(1, Integer.parseInt(idCliente)); // 00043823 Establece el id del cliente en la consulta.
+            stmt.setString(2, primerafecha); // 00043823 Establece la primerafecha en la consulta.
+            stmt.setString(3, segundafecha); // 00043823 Establece la segundafecha en la consulta.
 
-            ResultSet rs = stmt.executeQuery(); // 00043823
+            ResultSet rs = stmt.executeQuery(); // 00043823 Se ejecuta la consulta SQL.
 
-            while (rs.next()) { // 00043823
-                int idCompra = rs.getInt("id_compra"); // 00043823
-                String fechaCompra = rs.getString("fecha_compra"); // 00043823
-                double montoTotal = rs.getDouble("monto_total"); // 00043823
-                String descripcion = rs.getString("descripcion"); // 00043823
+            while (rs.next()) { // 00043823 Se inicia el bucle y se va a detener hasta que ya no haya un siguiente.
+                int idCompra = rs.getInt("id_compra"); // 00043823 Se crea e inicializa la variable de tipo int con el valor del id_Compra de la BD.
+                String fechaCompra = rs.getString("fecha_compra"); // 00043823 Se crea e inicializa la variable de tipo String con el valor de fecha_compra de la BD.
+                double montoTotal = rs.getDouble("monto_total"); // 00043823 Se crea e inicializa la variable de tipo double con el valor de monto_total de la BD.
+                String descripcion = rs.getString("descripcion"); // 00043823 Se crea e inicializa la variable de tipo String con el valor de descripcion  de la BD.
 
-                compras.add(new Compra(idCompra, fechaCompra, montoTotal, descripcion)); // 00043823
+                compras.add(new Compra(idCompra, fechaCompra, montoTotal, descripcion)); // 00043823 Se agregan a la lista usando el constructor de la clase Compra.
             }
 
-        } catch (SQLException e) { // 00043823
-            e.printStackTrace(); // 00043823
+        } catch (SQLException e) { // 00043823 Captura excepciones de tipo SQL.
+            e.printStackTrace(); // 00043823 Imprime el stack trace de la excepcion en dado caso falle lo que está en el try.
         }
 
-        return compras; // 00043823
+        return compras; // 00043823 Se retorna la lista compras.
     }
 
     private void showAlert(String title, String content) { // 00043823 Metodo showAlert para mostrar un mensaje en el momento que se utilice.
