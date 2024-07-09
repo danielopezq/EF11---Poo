@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import DatabaseConnection;
 
-public class ReporteBController {
+public class ReporteAController {
 
     @FXML
     private TextField idClienteField;
