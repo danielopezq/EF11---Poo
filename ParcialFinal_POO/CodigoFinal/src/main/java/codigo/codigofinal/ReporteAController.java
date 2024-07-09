@@ -112,36 +112,36 @@ public class ReporteAController { // 00043823
         return compras; // 00043823
     }
 
-    private void showAlert(String title, String content) { // 00043823
-        Alert alert = new Alert(Alert.AlertType.INFORMATION); // 00043823
-        alert.setTitle(title); // 00043823
-        alert.setHeaderText(null); // 00043823
-        alert.setContentText(content); // 00043823
-        alert.showAndWait(); // 00043823
+    private void showAlert(String title, String content) { // 00043823 Metodo showAlert para mostrar un mensaje en el momento que se utilice.
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // 00043823 Se crea la variable de tipo Alert y se define el tipo de Alert que será.
+        alert.setTitle(title); // 00043823 Se le da un titulo al Alert.
+        alert.setHeaderText(null); // 00043823 Se le indica que el Alert no tendrá encabezado.
+        alert.setContentText(content); // 00043823 Se le define el texto que mostrará el Alert.
+        alert.showAndWait(); // 00043823 Muestra el Alert hasta que el usuario lo cierre.
     }
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    public void returnToMainMenu() { // 00043823 Metodo para regresar al menu principal.
-        try { // 00043823 Bloque try para manejar excepciones.
+    public void returnToMainMenu() { // 00043823 Metodo returnToMainMenu para regresar al menu principal.
+        try { // 00043823 Inicio del bloque try para manejar excepciones.
             Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml")); // 00043823 Carga el archivo FXML del menu principal.
-            Stage stage = new Stage(); // 00043823 Crea una nueva ventana.
-            stage.setTitle("Banco Nacional de Nlogonia"); // 00043823 Establece el titulo de la nueva ventana.
-            stage.setScene(new Scene(root, 1268, 1000)); // 00043823 Establece la escena de la nueva ventana con sus dimensiones.
+            Stage stage = new Stage(); // 00043823 Crea una nueva ventana y se guarda en la variable stage.
+            stage.setTitle("Banco Nacional de Nlogonia"); // 00043823 Establece el titulo a la ventana.
+            stage.setScene(new Scene(root, 1268, 1000)); // 00043823 Establece la escena de la ventana y se le definen las dimensiones.
             stage.setResizable(false); // 00043823 Hace que la nueva ventana no sea redimensionable.
             stage.show(); // 00043823 Muestra la nueva ventana.
             closeCurrentWindow(); // 00043823 Llama al metodo para cerrar la ventana actual.
         } catch (IOException e) { // 00043823 Captura excepciones de entrada/salida.
-            e.printStackTrace(); // 00043823 Imprime el stack trace de la excepcion.
+            e.printStackTrace(); // 00043823 Imprime el stack trace de la excepcion en dado caso falle lo que está en el try.
         }
     }
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    public void closeApplication() { // 00043823 Metodo para cerrar la aplicacion.
-        System.exit(0); // 00043823 Finaliza la aplicacion.
+    public void closeApplication() { // 00043823 Metodo closeApplication para cerrar la aplicacion.
+        System.exit(0); // 00043823 Finaliza la aplicacion al mandar como parametro 0 en el System.exit().
     }
 
-    private void closeCurrentWindow() { // 00043823 Metodo para cerrar la ventana actual.
-        Stage stage = (Stage) rootPane.getScene().getWindow(); // 00043823 Obtiene la ventana actual.
-        stage.close(); // 00043823 Cierra la ventana actual.
+    private void closeCurrentWindow() { // 00043823 Metodo closeCurrentWindow para cerrar la ventana actual.
+        Stage stage = (Stage) rootPane.getScene().getWindow(); // 00043823 Obtiene la ventana actual y se guarda en la variable stage de tipo Stage.
+        stage.close(); // 00043823 Cierra la ventana actual, cerrando la variable stage.
     }
 }
