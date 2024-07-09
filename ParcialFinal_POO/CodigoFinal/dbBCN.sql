@@ -1,13 +1,37 @@
 CREATE database BCN;
 USE BCN;
 
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
+
+IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = 'ParcialFinal') --00043823 Primero verifico si no existe el usuario llamado ParcialFinal
+BEGIN --00043823 Se utiliza la palabra reservada para indicar donde se inicia una serie de instrucciones
+    CREATE LOGIN ParcialFinal WITH PASSWORD = 'parcialfinalpoo'; --00043823 Si la condición anterior se cumple entonces creo el usuario llamado ParcialFinal y la contraseña
+END --00043823 Se utiliza la palabra reservada para indicar donde se termina una serie de instrucciones
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
+
+CREATE DATABASE BCN; --00043823 Creo la base de datos llamada BCN
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
+
+USE BCN; --00043823 Me dirijo a la base de datos llamada BCN
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
+
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'ParcialFinal') --00043823 Primero verifico si no existe el usuario llamado ParcialFinal en la base de datos BCN
+BEGIN --00043823 Se utiliza la palabra reservada para indicar donde se inicia una serie de instrucciones
+    CREATE USER ParcialFinal FOR LOGIN ParcialFinal; --00043823 Si la condición anterior se cumple entonces creo el usuario llamado ParcialFinal para la base de datos BCN
+END --00043823 Se utiliza la palabra reservada para indicar donde se termina una serie de instrucciones
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
+
+EXEC sp_addrolemember 'db_datareader', 'ParcialFinal'; --00043823 Asigno el rol de lector al usuario ParcialFinal en la base de datos
+EXEC sp_addrolemember 'db_datawriter', 'ParcialFinal'; --00043823 Asigno el rol de escritor al usuario ParcialFinal en la base de datos
+GO --00043823 Esto se usa para que se ejecute la query y luego siga con las demás querys
+
 CREATE TABLE Cliente (
                          id_cliente INT PRIMARY KEY IDENTITY(1,1),
                          nombre_completo VARCHAR(100) NOT NULL,
                          direccion VARCHAR(255),
                          telefono VARCHAR(15)
 );
-
+GO
 CREATE TABLE Tarjeta (
                          id_tarjeta INT PRIMARY KEY IDENTITY(1,1),
                          id_cliente INT NOT NULL,
@@ -17,7 +41,7 @@ CREATE TABLE Tarjeta (
                          facilitador VARCHAR(20) NOT NULL,
                          FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
-
+GO
 CREATE TABLE Compra (
                         id_compra INT PRIMARY KEY IDENTITY(1,1),
                         id_cliente INT NOT NULL,
@@ -28,7 +52,7 @@ CREATE TABLE Compra (
                         FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
                         FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id_tarjeta)
 );
-
+GO
 -- Insert data into Cliente
 INSERT INTO Cliente (nombre_completo, direccion, telefono)
 VALUES
@@ -42,7 +66,7 @@ VALUES
     ('Jonas Antonio Carrillo Carrillo', 'Col. Monte Blanco, Soyapango', '7336 5184'),
     ('Rafael Gutiérrez del Barrio', 'Col. Altavista, San Salvador', '6002 0332'),
     ('Luis Alfonso Chicas Portillo', 'Col. Zacamil, San Salvador', '7843 3277');
-
+GO
 -- Insert data into Tarjeta
 INSERT INTO Tarjeta (id_cliente, numero_tarjeta, fecha_expiracion, tipo_tarjeta, facilitador)
 VALUES
@@ -56,7 +80,7 @@ VALUES
     (8, '5678901234567890', '2026-03-31', 'Crédito', 'Visa'),
     (9, '6789012345678901', '2025-08-31', 'Débito', 'Mastercard'),
     (10, '7890123456789012', '2026-04-30', 'Crédito', 'Visa');
-
+GO
 -- Insert data into Compra
 INSERT INTO Compra (id_cliente, id_tarjeta, fecha_compra, monto_total, descripcion)
 VALUES
@@ -74,4 +98,4 @@ VALUES
     (8, 8, CONVERT(DATETIME, '2024-07-12 23:00:00', 120), 800.00, 'Celular'),
     (9, 9, CONVERT(DATETIME, '2024-07-13 12:00:00', 120), 1200.00, 'Pantalla LG'),
     (10, 10, CONVERT(DATETIME, '2024-07-14 13:00:00', 120), 40.00, 'Libro');
-
+GO
