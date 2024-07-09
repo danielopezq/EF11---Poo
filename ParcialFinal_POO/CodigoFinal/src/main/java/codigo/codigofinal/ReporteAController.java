@@ -17,11 +17,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import codigo.codigofinal.Compra;
-
 
 public class ReporteAController {
-
     private DatabaseConnection db;
 
     @FXML
