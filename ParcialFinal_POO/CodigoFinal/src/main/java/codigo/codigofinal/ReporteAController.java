@@ -1,52 +1,52 @@
 package codigo.codigofinal; // 00043823 Paquete donde se encuentra la clase ReporteAController.
 
 import javafx.fxml.FXML; // 00043823 Importación la anotacion FXML.
-import javafx.fxml.FXMLLoader; // 00043823 Importación de la clase FXMLLoader
-import javafx.scene.Parent; // 00043823
-import javafx.scene.Scene; // 00043823
-import javafx.scene.control.Alert; // 00043823
-import javafx.scene.control.Button; // 00043823
-import javafx.scene.control.TextField; // 00043823
-import javafx.scene.layout.StackPane; // 00043823
-import javafx.stage.Stage; // 00043823
+import javafx.fxml.FXMLLoader; // 00043823 Importación de la clase FXMLLoader para poder cargar todos los archivos FXML.
+import javafx.scene.Parent; // 00043823 Importación de la clase Parent para obtener el nodo de la raiz de la escena.
+import javafx.scene.Scene; // 00043823 Importación de la clase Scene para las escenas de JavaFX.
+import javafx.scene.control.Alert; // 00043823 Importación de la clase Alert para poder crear y mostrar una alerta.
+import javafx.scene.control.Button; // 00043823 Importación de la clase Button para los botones.
+import javafx.scene.control.TextField; // 00043823 Importación de la clase TextField para los campos de texto.
+import javafx.scene.layout.StackPane; // 00043823 Importación de la clase StackPane
+import javafx.stage.Stage; // 00043823 Importación de la clase Stage para las ventanas.
 
-import java.io.BufferedWriter; // 00043823
-import java.io.FileWriter; // 00043823
-import java.io.IOException; // 00043823
-import java.sql.Connection; // 00043823
-import java.sql.PreparedStatement; // 00043823
-import java.sql.ResultSet; // 00043823
-import java.sql.SQLException; // 00043823
-import java.time.LocalDateTime; // 00043823
-import java.time.format.DateTimeFormatter; // 00043823
-import java.util.ArrayList; // 00043823
-import java.util.List; // 00043823
+import java.io.BufferedWriter; // 00043823 Importación de la clase BufferedWriter para poder dentro del archivo lo que se ha guardado en el buffer.
+import java.io.FileWriter; // 00043823 Importación de la clase FileWriter para poder escribir dentro de los archivos.
+import java.io.IOException; // 00043823 Importación de la clase IOException para poder manejar las excepciones de entrada/salida.
+import java.sql.Connection; // 00043823 Importación de la clase Connection para poder hacer la conexion con la BD.
+import java.sql.PreparedStatement; // 00043823 Importación de la clase PreparedStatement para poder ejecutar la consulta SQL.
+import java.sql.ResultSet; // 00043823 Importación de la clase ResultSet para poder manejar los resultados de la consulta SQL.
+import java.sql.SQLException; // 00043823 Importación de la clase SQLEsception para poder manejar las excepciones que puedan suceder al conectarse a la BD.
+import java.time.LocalDateTime; // 00043823 Importación de la clase LocalDateTime para poder manejar fechas y horas.
+import java.time.format.DateTimeFormatter; // 00043823 Importación de la clase DateTimeFormatter para poder formatear fechas y horas.
+import java.util.ArrayList; // 00043823 Importación de la clase ArrayList para poder hacer que la lista de las compras sea un arreglo
+import java.util.List; // 00043823 Importación de la clase List para crear una lista y poder mandar la lista al archivo txt.
 
 public class ReporteAController { // 00043823 Nombre de la clase.
     private DatabaseConnection db; // 00043823 Variable de tipo DatabaseConnection para poder acceder al metodo getConnection() de dicha clase.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private TextField idClienteField; // 00043823
+    private TextField idClienteField; // 00043823 Campo de texto para el idCliente.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private TextField primerafechaField; // 00043823
+    private TextField primerafechaField; // 00043823 Campo de texto para la primerafecha.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private TextField segundafechaField; // 00043823
+    private TextField segundafechaField; // 00043823 Campo de texto para la segundafecha.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private Button generarReporteButton; // 00043823
+    private Button generarReporteButton; // 00043823 Boton para generar el reporte.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente elemento es inyectado por FXML.
     private StackPane rootPane; // 00043823 Pane que actua como contenedor principal.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    public void initialize() { // 00043823
-        generarReporteButton.setOnAction(e -> { // 00043823
-            String idCliente = idClienteField.getText(); // 00043823
-            String primerafecha = primerafechaField.getText(); // 00043823
-            String segundafecha = segundafechaField.getText(); // 00043823
-            generarReporte(idCliente, primerafecha, segundafecha); // 00043823
+    public void initialize() { // 00043823 Metodo que se ejecuta cuando se se inicializa elc ontrolador.
+        generarReporteButton.setOnAction(e -> { // 00043823 Se define la accion de generarReporteButton.
+            String idCliente = idClienteField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String idCliente que guarda lo que se ha digitado en el TextField.
+            String primerafecha = primerafechaField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String primerafecha que guarda lo que se ha digitado en el TextField.
+            String segundafecha = segundafechaField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String segundafecha que guarda lo que se ha digitado en el TextField.
+            generarReporte(idCliente, primerafecha, segundafecha); // 00043823 Se utiliza el metodo generar reporte y se le pasa como parametro las variables antes inicializadas.
         });
     }
 
