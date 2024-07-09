@@ -1,4 +1,4 @@
-package codigo.codigofinal; // 00043823 Paquete donde se encuentra la clase Compra
+package codigo.codigofinal; // 00043823 Paquete donde se encuentra la clase Compra.
 
 public class Compra { // 00043823 Declaracion de la clase Compra.
     private int idCompra; // 00043823 Variable de tipo int para guardar los id de caada compra.
