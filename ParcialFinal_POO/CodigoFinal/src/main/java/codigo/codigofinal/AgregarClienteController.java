@@ -22,95 +22,54 @@ import java.time.format.DateTimeFormatter; // 00043823 Importación de la clase 
 import java.util.ArrayList; // 00043823 Importación de la clase ArrayList para poder hacer que la lista de las compras sea un arreglo
 import java.util.List; // 00043823 Importación de la clase List para crear una lista y poder mandar la lista al archivo txt.
 
-public class ReporteAController { // 00043823 Nombre de la clase.
+
+public class AgregarClienteController {
     private DatabaseConnection db; // 00043823 Variable de tipo DatabaseConnection para poder acceder al metodo getConnection() de dicha clase.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     private TextField idClienteField; // 00043823 Campo de texto para el idCliente.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private TextField primerafechaField; // 00043823 Campo de texto para la primerafecha.
+    private TextField nombreField; // 00043823 Campo de texto para el nombre.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private TextField segundafechaField; // 00043823 Campo de texto para la segundafecha.
+    private TextField direccionField; // 00043823 Campo de texto para la direccion.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
-    private Button generarReporteButton; // 00043823 Boton para generar el reporte.
+    private TextField telefonoField; // 00043823 Campo de texto para el telefono.
+
+    @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
+    private Button agregarBDButton; // 00043823 Boton para generar el reporte.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente elemento es inyectado por FXML.
     private StackPane rootPane; // 00043823 Pane que actua como contenedor principal.
 
     @FXML // 00043823 Anotacion para indicar que el siguiente metodo es un controlador de eventos FXML.
     public void initialize() { // 00043823 Metodo que se ejecuta cuando se se inicializa elc ontrolador.
-        generarReporteButton.setOnAction(e -> { // 00043823 Se define la accion de generarReporteButton.
-            String idCliente = idClienteField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String idCliente que guarda lo que se ha digitado en el TextField.
-            String primerafecha = primerafechaField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String primerafecha que guarda lo que se ha digitado en el TextField.
-            String segundafecha = segundafechaField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String segundafecha que guarda lo que se ha digitado en el TextField.
-            generarReporte(idCliente, primerafecha, segundafecha); // 00043823 Se utiliza el metodo generar reporte y se le pasa como parametro las variables antes inicializadas.
+        agregarBDButton.setOnAction(e -> { // 00043823 Se define la accion de generarReporteButton.
+            int idCliente = Integer.parseInt(idClienteField.getText()); // 00043823 Se crea y se inicializa una variable de tipo String idCliente que guarda lo que se ha digitado en el TextField.
+            String nombre = nombreField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String nombre que guarda lo que se ha digitado en el TextField.
+            String direccion = direccionField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String direccion que guarda lo que se ha digitado en el TextField.
+            String telefono = telefonoField.getText(); // 00043823 Se crea y se inicializa una variable de tipo String telefonp que guarda lo que se ha digitado en el TextField.
+            agregarBD(idCliente, nombre, direccion, telefono); // 00043823 Se utiliza el metodo agregarBD y se le pasa como parametro las variables antes inicializadas.
         });
     }
 
-    private void generarReporte(String idCliente, String primerafecha, String segundafecha) { // 00043823 Metodo generarReporte con sus parametros.
-        List<Compra> compras = comprasRealizadasEnPeriodo(idCliente, primerafecha, segundafecha); // 00043823 Se crea e inicializa una lista de tipo Compras que guardará a las compras realizadas en ese intervalo de fechas usando el metodo comprasRealizadasEnPeriodo.
 
-        LocalDateTime now = LocalDateTime.now(); // 00043823 Se obtiene la fecha y hora actuales.
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"); // 00043823 Se le da el formato a la fecha y hora.
-        String timestamp = now.format(formatter); // 00043823 Se formatea la fecha y hora.
+    private void agregarBD(int idCliente, String nombre, String direccion, String telefono) { // 00043823 Metodo agregarBD con los parametros que el usuario introducirá en la ventana.
 
-        String reportContent = "Reporte A\n" + // 00043823 Se crea e inicializa la variable de tipo String con el contenido del reporte.
-                "ID Cliente: " + idCliente + "\n" + // 00043823 Agrega el id del cliente.
-                "Primera Fecha: " + primerafecha + "\n" + // 00043823 Agrega la primera fecha.
-                "Segunda Fecha: " + segundafecha + "\n" + // 00043823 Agrega la segunda fecha.
-                "Generado en: " + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n\n" + // 00043823 Agrega la fecha y hora que se ha generado el reporte.
-                "Detalle de Compras:\n"; // 00043823 Se agrega el detalle de las compras.
-
-        for (Compra compra : compras) { // 00043823 Se inicia un bucle For que recorrerá todos los elementos de la lista compras.
-            reportContent += "ID Compra: " + compra.getIdCompra() + "\n" + // 00043823 Se agrega el id de la compra.
-                    "Fecha Compra: " + compra.getFechaCompra() + "\n" + // 00043823 Se agrega la fecha de la compra.
-                    "Monto Total: $" + compra.getMontoTotal() + "\n" + // 00043823 Se agrega el monto total de la compra.
-                    "Descripción: " + compra.getDescripcion() + "\n" + // 00043823 Se agrega la descripcion de la compra.
-                    "------\n"; // 00043823 Se agrega el formato de unas lineas para hacer la división entre compras.
-        }
-
-        String desktopPath = System.getProperty("user.home") + "/Desktop"; // 00043823 Obtiene la ruta del escritorio.
-        String fileName = desktopPath + "/ReporteB" + timestamp + ".txt"; // 00043823 Define el nombre del archivo del reporte.
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) { // 00043823 Se crea un BufferedWriter para poder escribir en el archivo.
-            writer.write(reportContent.toString()); // 00043823 Se escribe el contenido en el archivo.
-            showAlert("Reporte Generado", "El reporte se ha generado y está ubicado en su escritorio:\n" + fileName); // 00043823 Se muestra una alerta si el archivo se genero exitosamente.
-        } catch (IOException e) { // 00043823 Captura excepciones de entrada/salida.
-            e.printStackTrace(); // 00043823 Imprime el stack trace de la excepcion en dado caso falle lo que está en el try.
-            showAlert("Error", "Ocurrió un error al generar el reporte. Revise los datos ingresados"); // 00043823 00043823 Se muestra una alerta si el archivo no se pudo generar exitosamente.
-        }
-    }
-
-    private List<Compra> comprasRealizadasEnPeriodo(String idCliente, String primerafecha, String segundafecha) { // 00043823 Metodo comprasRealizadasEnPeriodo con los parametros que el usuario introducirá en la ventana.
-        List<Compra> compras = new ArrayList<>(); // 00043823 Se crea la variable compras que será una lista de tipo de la clase Compras.
-
-        String query = "SELECT id_compra, fecha_compra, monto_total, descripcion FROM Compra WHERE id_cliente = ? AND fecha_compra BETWEEN ? AND ?"; // 00043823 Se define la consulta que nos dará el resultado que queremos, así como en SQL Server.
+        String query = "INSERT INTO Clientes(id_cliente, nombre_completo, direccion, telefono) VALUES("+ idCliente + ", " + nombre + ", "+ direccion+", " + telefono + ")"; // 00043823 Se define la consulta que nos dará el resultado que queremos, así como en SQL Server.
 
         try (Connection conn = db.getConnection(); // 00043823 Se inicia el try y se crea la variable de tipo Connection que tendrá el método getConnection() de la clase DatabaseConnection.
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00043823 Prepara la consulta SQL.
 
-            stmt.setInt(1, Integer.parseInt(idCliente)); // 00043823 Establece el id del cliente en la consulta.
-            stmt.setString(2, primerafecha); // 00043823 Establece la primerafecha en la consulta.
-            stmt.setString(3, segundafecha); // 00043823 Establece la segundafecha en la consulta.
-
             ResultSet rs = stmt.executeQuery(); // 00043823 Se ejecuta la consulta SQL.
 
-            while (rs.next()) { // 00043823 Se inicia el bucle y se va a detener hasta que ya no haya un siguiente.
-                int idCompra = rs.getInt("id_compra"); // 00043823 Se crea e inicializa la variable de tipo int con el valor del id_Compra de la BD.
-                String fechaCompra = rs.getString("fecha_compra"); // 00043823 Se crea e inicializa la variable de tipo String con el valor de fecha_compra de la BD.
-                double montoTotal = rs.getDouble("monto_total"); // 00043823 Se crea e inicializa la variable de tipo double con el valor de monto_total de la BD.
-                String descripcion = rs.getString("descripcion"); // 00043823 Se crea e inicializa la variable de tipo String con el valor de descripcion  de la BD.
-
-                compras.add(new Compra(idCompra, fechaCompra, montoTotal, descripcion)); // 00043823 Se agregan a la lista usando el constructor de la clase Compra.
-            }
-
+           showAlert("Base de datos", "Los valores se han agregado exitosamente a la base de datos.");
         } catch (SQLException e) { // 00043823 Captura excepciones de tipo SQL.
             e.printStackTrace(); // 00043823 Imprime el stack trace de la excepcion en dado caso falle lo que está en el try.
+            showAlert("Error", "Los valores no se han agregado a la base de datos.");
         }
-
-        return compras; // 00043823 Se retorna la lista compras.
     }
 
     private void showAlert(String title, String content) { // 00043823 Metodo showAlert para mostrar un mensaje en el momento que se utilice.
