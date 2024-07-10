@@ -10,9 +10,9 @@ public class BancoApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // 00148023 Cargar el archivo FXML del menú principal
+        // 00148023 Cargar el archivo FXML del menu principal
         Parent root = FXMLLoader.load(getClass().getResource("MenuPrincipal.fxml"));
-        // 00148023 Establecer el título de la ventana principal
+        // 00148023 Establecer el titulo de la ventana principal
         primaryStage.setTitle("Banco Nacional de Nlogonia");
         // 00148023 Crear y establecer la escena principal
         primaryStage.setScene(new Scene(root, 1268, 1000));
@@ -23,7 +23,7 @@ public class BancoApp extends Application {
     }
 
     public static void main(String[] args) {
-        // 00148023 Lanzar la aplicación JavaFX
+        // 00148023 Lanzar la aplicacion JavaFX
         launch(args);
     }
 }

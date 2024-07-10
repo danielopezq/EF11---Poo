@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MenuReportesController {
 
     @FXML
-    private StackPane rootPane; // 00148023 Panel raíz de la interfaz
+    private StackPane rootPane; // 00148023 Panel raiz de la interfaz
 
     @FXML
     public void handleReporteA() {
@@ -41,18 +41,18 @@ public class MenuReportesController {
     @FXML
     public void returnToMainMenu() {
         try {
-            // 00148023 Cargar el archivo FXML del menú principal
+            // 00148023 Cargar el archivo FXML del menu principal
             Parent root = FXMLLoader.load(getClass().getResource("MenuPrincipal.fxml"));
-            // 00148023 Crear y mostrar una nueva escena del menú principal
+            // 00148023 Crear y mostrar una nueva escena del menu principal
             Stage stage = new Stage();
-            stage.setTitle("Banco Nacional de Nlogonia"); // 00148023 Establecer el título de la ventana
+            stage.setTitle("Banco Nacional de Nlogonia"); // 00148023 Establecer el titulo de la ventana
             stage.setScene(new Scene(root, 1268, 1000)); // 00148023 Establecer la escena principal
             stage.setResizable(false); // 00148023 Hacer la ventana no redimensionable
             stage.show(); // 00148023 Mostrar la ventana principal
             // 00148023 Cerrar la ventana actual
             closeCurrentWindow();
         } catch (IOException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción de IO
+            e.printStackTrace(); // 00148023 Manejo de excepcion de IO
         }
     }
 
@@ -60,16 +60,16 @@ public class MenuReportesController {
         try {
             // 00148023 Cargar el archivo FXML especificado
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
-            // 00148023 Crear y mostrar una nueva escena con el título especificado
+            // 00148023 Crear y mostrar una nueva escena con el titulo especificado
             Stage stage = new Stage();
-            stage.setTitle(title); // 00148023 Establecer el título de la ventana
+            stage.setTitle(title); // 00148023 Establecer el titulo de la ventana
             stage.setScene(new Scene(root, 1268, 1000)); // 00148023 Establecer la escena principal
             stage.setResizable(false); // 00148023 Hacer la ventana no redimensionable
             stage.show(); // 00148023 Mostrar la ventana
             // 00148023 Cerrar la ventana actual
             closeCurrentWindow();
         } catch (IOException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción de IO
+            e.printStackTrace(); // 00148023 Manejo de excepcion de IO
         }
     }
 

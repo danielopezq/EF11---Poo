@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ReporteBController {
-    // 00148023 Conexión a la base de datos
+    // 00148023 Conexion a la base de datos
     private DatabaseConnection db;
 
     @FXML
@@ -31,18 +31,18 @@ public class ReporteBController {
     @FXML
     private TextField anoField; // 00148023 Campo de texto para el año del reporte
     @FXML
-    private Button generarReporteButton; // 00148023 Botón para generar el reporte
+    private Button generarReporteButton; // 00148023 Boton para generar el reporte
     @FXML
-    private StackPane rootPane; // 00148023 Panel raíz de la interfaz
+    private StackPane rootPane; // 00148023 Panel raiz de la interfaz
 
     @FXML
     public void initialize() {
-        // 00148023 Configurar el evento de clic del botón de generar reporte
+        // 00148023 Configurar el evento de clic del boton de generar reporte
         generarReporteButton.setOnAction(e -> {
             String idCliente = idClienteField.getText(); // 00148023 Obtener valor del campo ID cliente
             String mes = mesField.getText(); // 00148023 Obtener valor del campo mes
             String ano = anoField.getText(); // 00148023 Obtener valor del campo año
-            // 00148023 Llamar al método generarReporte con los datos obtenidos
+            // 00148023 Llamar al metodo generarReporte con los datos obtenidos
             generarReporte(idCliente, mes, ano);
         });
     }
@@ -72,12 +72,12 @@ public class ReporteBController {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             // 00148023 Escribir el contenido del reporte en el archivo
             writer.write(reportContent);
-            // 00148023 Mostrar alerta de éxito
-            showAlert("Reporte Generado", "El reporte se ha generado y está ubicado en su escritorio:\n" + fileName);
+            // 00148023 Mostrar alerta de exito
+            showAlert("Reporte Generado", "El reporte se ha generado y esta ubicado en su escritorio:\n" + fileName);
         } catch (IOException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción de IO
+            e.printStackTrace(); // 00148023 Manejo de excepcion de IO
             // 00148023 Mostrar alerta de error
-            showAlert("Error", "Ocurrió un error al generar el reporte. Revise los datos ingresados: " + e.getMessage());
+            showAlert("Error", "Ocurrio un error al generar el reporte. Revise los datos ingresados: " + e.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class ReporteBController {
 
         // 00148023 Consulta SQL para sumar el total gastado por el cliente en el mes y año especificados
         String query = "SELECT SUM(monto_total) AS total FROM Compra WHERE id_cliente = ? AND MONTH(fecha_compra) = ? AND YEAR(fecha_compra) = ?";
-        try (Connection conn = db.getConnection(); // 00148023 Obtener conexión a la base de datos
+        try (Connection conn = db.getConnection(); // 00148023 Obtener conexion a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00148023 Preparar la consulta SQL
 
             stmt.setInt(1, Integer.parseInt(idCliente)); // 00148023 Establecer ID del cliente en la consulta
@@ -101,16 +101,16 @@ public class ReporteBController {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción SQL
+            e.printStackTrace(); // 00148023 Manejo de excepcion SQL
         }
 
         return totalGastado; // 00148023 Retornar el total gastado
     }
 
     private void showAlert(String title, String content) {
-        // 00148023 Crear y mostrar una alerta de información
+        // 00148023 Crear y mostrar una alerta de informacion
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title); // 00148023 Establecer el título de la alerta
+        alert.setTitle(title); // 00148023 Establecer el titulo de la alerta
         alert.setHeaderText(null); // 00148023 Establecer el encabezado de la alerta
         alert.setContentText(content); // 00148023 Establecer el contenido de la alerta
         alert.showAndWait(); // 00148023 Mostrar la alerta y esperar a que el usuario la cierre
@@ -119,24 +119,24 @@ public class ReporteBController {
     @FXML
     public void returnToMainMenu() {
         try {
-            // 00148023 Cargar el archivo FXML del menú principal
+            // 00148023 Cargar el archivo FXML del menu principal
             Parent root = FXMLLoader.load(getClass().getResource("MenuPrincipal.fxml"));
-            // 00148023 Crear y mostrar una nueva escena del menú principal
+            // 00148023 Crear y mostrar una nueva escena del menu principal
             Stage stage = new Stage();
-            stage.setTitle("Banco Nacional de Nlogonia"); // 00148023 Establecer el título de la ventana
+            stage.setTitle("Banco Nacional de Nlogonia"); // 00148023 Establecer el titulo de la ventana
             stage.setScene(new Scene(root, 1268, 1000)); // 00148023 Establecer la escena principal
             stage.setResizable(false); // 00148023 Hacer la ventana no redimensionable
             stage.show(); // 00148023 Mostrar la ventana principal
             // 00148023 Cerrar la ventana actual
             closeCurrentWindow();
         } catch (IOException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción de IO
+            e.printStackTrace(); // 00148023 Manejo de excepcion de IO
         }
     }
 
     @FXML
     public void closeApplication() {
-        // 00148023 Cerrar la aplicación
+        // 00148023 Cerrar la aplicacion
         System.exit(0);
     }
 

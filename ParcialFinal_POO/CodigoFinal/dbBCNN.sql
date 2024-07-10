@@ -1,57 +1,67 @@
+-- 00148023 Usar la base de datos master
 USE master;
 GO
 
+-- 00043823 Verificar si el inicio de sesión 'ParcialFinal' no existe
 IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = 'ParcialFinal')
 BEGIN
+    -- 00043823 Crear el inicio de sesión 'ParcialFinal' con la contraseña especificada
     CREATE LOGIN ParcialFinal WITH PASSWORD = 'parcialfinalpoo';
 END
 GO
 
+-- 00043823 Crear la base de datos BCNN
 CREATE DATABASE BCNN;
 GO
 
+-- 00043823 Usar la base de datos BCNN
 USE BCNN;
 GO
 
+-- 00043823 Verificar si el usuario de base de datos 'ParcialFinal' no existe
 IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'ParcialFinal')
 BEGIN
+    -- 00043823 Crear el usuario 'ParcialFinal' para el inicio de sesión 'ParcialFinal'
     CREATE USER ParcialFinal FOR LOGIN ParcialFinal;
 END
 GO
 
+-- 00043823 Agregar el usuario 'ParcialFinal' al rol 'db_datareader' para permisos de lectura
 EXEC sp_addrolemember 'db_datareader', 'ParcialFinal';
+-- 00043823 Agregar el usuario 'ParcialFinal' al rol 'db_datawriter' para permisos de escritura
 EXEC sp_addrolemember 'db_datawriter', 'ParcialFinal';
 GO
 
+
 CREATE TABLE Cliente (
-    id_cliente INT PRIMARY KEY IDENTITY(1,1), -- 00148023 Campo de ID del cliente, clave primaria autoincremental
-    nombre_completo VARCHAR(100) NOT NULL, -- 00148023 Campo de nombre completo del cliente, no puede ser nulo
-    direccion VARCHAR(255), -- 00148023 Campo de dirección del cliente, puede ser nulo
-    telefono VARCHAR(15) -- 00148023 Campo de teléfono del cliente, puede ser nulo
+                         id_cliente INT PRIMARY KEY IDENTITY(1,1), -- 00148023 Campo de ID del cliente, clave primaria autoincremental
+                         nombre_completo VARCHAR(100) NOT NULL, -- 00148023 Campo de nombre completo del cliente, no puede ser nulo
+                         direccion VARCHAR(255), -- 00148023 Campo de dirección del cliente, puede ser nulo
+                         telefono VARCHAR(15) -- 00148023 Campo de teléfono del cliente, puede ser nulo
 );
 GO
 
 CREATE TABLE Tarjeta (
-    id_tarjeta INT PRIMARY KEY IDENTITY(1,1), -- 00148023 Campo de ID de la tarjeta, clave primaria autoincremental
-    id_cliente INT NOT NULL, -- 00148023 Campo de ID del cliente, no puede ser nulo
-    numero_tarjeta VARCHAR(20) NOT NULL, -- 00148023 Campo de número de tarjeta, no puede ser nulo
-    fecha_expiracion DATE NOT NULL, -- 00148023 Campo de fecha de expiración, no puede ser nulo
-    tipo_tarjeta VARCHAR(10) CHECK (tipo_tarjeta IN ('Credito', 'Debito')), -- 00148023 Campo de tipo de tarjeta, con valores permitidos
-    facilitador VARCHAR(20) NOT NULL, -- 00148023 Campo de facilitador, no puede ser nulo
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) -- 00148023 Llave foránea que referencia al ID del cliente
+                         id_tarjeta INT PRIMARY KEY IDENTITY(1,1), -- 00148023 Campo de ID de la tarjeta, clave primaria autoincremental
+                         id_cliente INT NOT NULL, -- 00148023 Campo de ID del cliente, no puede ser nulo
+                         numero_tarjeta VARCHAR(20) NOT NULL, -- 00148023 Campo de número de tarjeta, no puede ser nulo
+                         fecha_expiracion DATE NOT NULL, -- 00148023 Campo de fecha de expiración, no puede ser nulo
+                         tipo_tarjeta VARCHAR(10) CHECK (tipo_tarjeta IN ('Credito', 'Debito')), -- 00148023 Campo de tipo de tarjeta, con valores permitidos
+                         facilitador VARCHAR(20) NOT NULL, -- 00148023 Campo de facilitador, no puede ser nulo
+                         FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) -- 00148023 Llave foránea que referencia al ID del cliente
 );
 GO
 
 
 CREATE TABLE Compra (
-    id_compra INT PRIMARY KEY IDENTITY(1,1), -- 00148023 Campo de ID de la compra, clave primaria autoincremental
-    id_cliente INT NOT NULL, -- 00148023 Campo de ID del cliente, no puede ser nulo
-    id_tarjeta INT NOT NULL, -- 00148023 Campo de ID de la tarjeta, no puede ser nulo
-    fecha_compra DATETIME NOT NULL, -- 00148023 Campo de fecha de compra, no puede ser nulo
-    monto_total DECIMAL(10, 2) NOT NULL, -- 00148023 Campo de monto total de la compra, no puede ser nulo
-    descripcion VARCHAR(255), -- 00148023 Campo de descripción de la compra, puede ser nulo
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente), -- 00148023 Llave foránea que referencia al ID del cliente
-    FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id_tarjeta) -- 00148023 Llave foránea que referencia al ID de la tarjeta
+                        id_compra INT PRIMARY KEY IDENTITY(1,1), -- 00148023 Campo de ID de la compra, clave primaria autoincremental
+                        id_cliente INT NOT NULL, -- 00148023 Campo de ID del cliente, no puede ser nulo
+                        id_tarjeta INT NOT NULL, -- 00148023 Campo de ID de la tarjeta, no puede ser nulo
+                        fecha_compra DATETIME NOT NULL, -- 00148023 Campo de fecha de compra, no puede ser nulo
+                        monto_total DECIMAL(10, 2) NOT NULL, -- 00148023 Campo de monto total de la compra, no puede ser nulo
+                        descripcion VARCHAR(255), -- 00148023 Campo de descripción de la compra, puede ser nulo
+                        FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente), -- 00148023 Llave foránea que referencia al ID del cliente
+                        FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id_tarjeta) -- 00148023 Llave foránea que referencia al ID de la tarjeta
 );
 GO
 
@@ -105,13 +115,4 @@ VALUES
     (10, 10, CONVERT(DATETIME,'2024-09-03 13:00:00', 120), 40.00, 'Libro');
 GO
 
-USE BCNN;
-GRANT SELECT, INSERT, UPDATE, DELETE ON DATABASE::BCNN TO ParcialFinal;
-GO
 
-USE BCNN;
-ALTER USER ParcialFinal WITH DEFAULT_SCHEMA = dbo;
-GO
-
--- comprobar si se creo el perfil
-SELECT name FROM sys.syslogins WHERE name = 'ParcialFinal';

@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CompraOnlineController {
-    // 00148023 Conexión a la base de datos
+    // 00148023 Conexion a la base de datos
     private DatabaseConnection db;
 
     @FXML
@@ -30,65 +30,65 @@ public class CompraOnlineController {
     @FXML
     private TextField nombreField; // 00148023 Campo de texto para el nombre del cliente
     @FXML
-    private TextField direccionField; // 00148023 Campo de texto para la dirección del cliente
+    private TextField direccionField; // 00148023 Campo de texto para la direccion del cliente
     @FXML
-    private TextField telefonoField; // 00148023 Campo de texto para el teléfono del cliente
+    private TextField telefonoField; // 00148023 Campo de texto para el telefono del cliente
     @FXML
     private TextField montoTotalField; // 00148023 Campo de texto para el monto total de la compra
     @FXML
-    private TextField descripcionField; // 00148023 Campo de texto para la descripción de la compra
+    private TextField descripcionField; // 00148023 Campo de texto para la descripcion de la compra
     @FXML
     private TextField tipoTarjetaField; // 00148023 Campo de texto para el tipo de tarjeta
     @FXML
-    private TextField numeroTarjetaField; // 00148023 Campo de texto para el número de tarjeta
+    private TextField numeroTarjetaField; // 00148023 Campo de texto para el numero de tarjeta
     @FXML
     private TextField facilitadorField; // 00148023 Campo de texto para el facilitador de la tarjeta
     @FXML
-    private Button realizarCompraButton; // 00148023 Botón para realizar la compra
+    private Button realizarCompraButton; // 00148023 Boton para realizar la compra
     @FXML
     private RadioButton nuevoClienteRadioButton; // 00148023 RadioButton para indicar si es un nuevo cliente
     @FXML
-    private StackPane rootPane; // 00148023 Panel raíz de la interfaz
+    private StackPane rootPane; // 00148023 Panel raiz de la interfaz
 
     @FXML
     public void initialize() {
-        // 00148023 Configurar el evento de selección del RadioButton de nuevo cliente
+        // 00148023 Configurar el evento de seleccion del RadioButton de nuevo cliente
         nuevoClienteRadioButton.setOnAction(e -> {
-            // 00148023 Habilitar o deshabilitar campos según el estado del RadioButton
+            // 00148023 Habilitar o deshabilitar campos segun el estado del RadioButton
             if (nuevoClienteRadioButton.isSelected()) {
                 idClienteField.setDisable(true); // 00148023 Deshabilitar campo de ID cliente
                 nombreField.setDisable(false); // 00148023 Habilitar campo de nombre
-                direccionField.setDisable(false); // 00148023 Habilitar campo de dirección
-                telefonoField.setDisable(false); // 00148023 Habilitar campo de teléfono
+                direccionField.setDisable(false); // 00148023 Habilitar campo de direccion
+                telefonoField.setDisable(false); // 00148023 Habilitar campo de telefono
             } else {
                 idClienteField.setDisable(false); // 00148023 Habilitar campo de ID cliente
                 nombreField.setDisable(true); // 00148023 Deshabilitar campo de nombre
-                direccionField.setDisable(true); // 00148023 Deshabilitar campo de dirección
-                telefonoField.setDisable(true); // 00148023 Deshabilitar campo de teléfono
+                direccionField.setDisable(true); // 00148023 Deshabilitar campo de direccion
+                telefonoField.setDisable(true); // 00148023 Deshabilitar campo de telefono
             }
         });
 
-        // 00148023 Configurar el evento de clic del botón de realizar compra
+        // 00148023 Configurar el evento de clic del boton de realizar compra
         realizarCompraButton.setOnAction(e -> {
             String idCliente = idClienteField.getText(); // 00148023 Obtener valor del campo ID cliente
             String nombre = nombreField.getText(); // 00148023 Obtener valor del campo nombre
-            String direccion = direccionField.getText(); // 00148023 Obtener valor del campo dirección
-            String telefono = telefonoField.getText(); // 00148023 Obtener valor del campo teléfono
+            String direccion = direccionField.getText(); // 00148023 Obtener valor del campo direccion
+            String telefono = telefonoField.getText(); // 00148023 Obtener valor del campo telefono
             String montoTotal = montoTotalField.getText(); // 00148023 Obtener valor del campo monto total
-            String descripcion = descripcionField.getText(); // 00148023 Obtener valor del campo descripción
+            String descripcion = descripcionField.getText(); // 00148023 Obtener valor del campo descripcion
             String tipoTarjeta = tipoTarjetaField.getText(); // 00148023 Obtener valor del campo tipo de tarjeta
-            String numeroTarjeta = numeroTarjetaField.getText(); // 00148023 Obtener valor del campo número de tarjeta
+            String numeroTarjeta = numeroTarjetaField.getText(); // 00148023 Obtener valor del campo numero de tarjeta
             String facilitador = facilitadorField.getText(); // 00148023 Obtener valor del campo facilitador
-            // 00148023 Llamar al método realizarCompra con los datos obtenidos
+            // 00148023 Llamar al metodo realizarCompra con los datos obtenidos
             realizarCompra(idCliente, nombre, direccion, telefono, montoTotal, descripcion, tipoTarjeta, numeroTarjeta, facilitador);
         });
 
-        // 00148023 Inicializar el estado de los campos según el estado inicial del RadioButton
+        // 00148023 Inicializar el estado de los campos segun el estado inicial del RadioButton
         if (!nuevoClienteRadioButton.isSelected()) {
             idClienteField.setDisable(false); // 00148023 Habilitar campo de ID cliente
             nombreField.setDisable(true); // 00148023 Deshabilitar campo de nombre
-            direccionField.setDisable(true); // 00148023 Deshabilitar campo de dirección
-            telefonoField.setDisable(true); // 00148023 Deshabilitar campo de teléfono
+            direccionField.setDisable(true); // 00148023 Deshabilitar campo de direccion
+            telefonoField.setDisable(true); // 00148023 Deshabilitar campo de telefono
         }
     }
 
@@ -126,18 +126,18 @@ public class CompraOnlineController {
     private String insertarCliente(String nombre, String direccion, String telefono) {
         // 00148023 Consulta SQL para insertar un nuevo cliente
         String query = "INSERT INTO Cliente (nombre_completo, direccion, telefono) OUTPUT INSERTED.id_cliente VALUES (?, ?, ?)";
-        try (Connection conn = db.getConnection(); // 00148023 Obtener conexión a la base de datos
+        try (Connection conn = db.getConnection(); // 00148023 Obtener conexion a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00148023 Preparar la consulta SQL
             stmt.setString(1, nombre); // 00148023 Establecer nombre en la consulta
-            stmt.setString(2, direccion); // 00148023 Establecer dirección en la consulta
-            stmt.setString(3, telefono); // 00148023 Establecer teléfono en la consulta
+            stmt.setString(2, direccion); // 00148023 Establecer direccion en la consulta
+            stmt.setString(3, telefono); // 00148023 Establecer telefono en la consulta
             ResultSet rs = stmt.executeQuery(); // 00148023 Ejecutar la consulta y obtener el resultado
             if (rs.next()) {
                 // 00148023 Retornar el ID del nuevo cliente
                 return String.valueOf(rs.getInt("id_cliente"));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción SQL
+            e.printStackTrace(); // 00148023 Manejo de excepcion SQL
             // 00148023 Mostrar alerta de error
             showAlert("Error", "Ocurrio un error al registrar el cliente. Revise los datos ingresados.");
         }
@@ -147,17 +147,17 @@ public class CompraOnlineController {
     private boolean tarjetaExiste(String idCliente, String numeroTarjeta) {
         // 00148023 Consulta SQL para verificar si la tarjeta ya existe
         String query = "SELECT COUNT(*) FROM Tarjeta WHERE id_cliente = ? AND numero_tarjeta = ?";
-        try (Connection conn = db.getConnection(); // 00148023 Obtener conexión a la base de datos
+        try (Connection conn = db.getConnection(); // 00148023 Obtener conexion a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00148023 Preparar la consulta SQL
             stmt.setInt(1, Integer.parseInt(idCliente)); // 00148023 Establecer ID del cliente en la consulta
-            stmt.setString(2, numeroTarjeta); // 00148023 Establecer número de tarjeta en la consulta
+            stmt.setString(2, numeroTarjeta); // 00148023 Establecer numero de tarjeta en la consulta
             ResultSet rs = stmt.executeQuery(); // 00148023 Ejecutar la consulta y obtener el resultado
             if (rs.next()) {
                 // 00148023 Retornar verdadero si la tarjeta existe
                 return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción SQL
+            e.printStackTrace(); // 00148023 Manejo de excepcion SQL
         }
         return false; // 00148023 Retornar falso si la tarjeta no existe
     }
@@ -165,52 +165,52 @@ public class CompraOnlineController {
     private void insertarTarjeta(String idCliente, String tipoTarjeta, String numeroTarjeta, String facilitador) {
         // 00148023 Consulta SQL para insertar una nueva tarjeta
         String query = "INSERT INTO Tarjeta (id_cliente, numero_tarjeta, fecha_expiracion, tipo_tarjeta, facilitador) VALUES (?, ?, '2025-12-31', ?, ?)";
-        try (Connection conn = db.getConnection(); // 00148023 Obtener conexión a la base de datos
+        try (Connection conn = db.getConnection(); // 00148023 Obtener conexion a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00148023 Preparar la consulta SQL
             stmt.setInt(1, Integer.parseInt(idCliente)); // 00148023 Establecer ID del cliente en la consulta
-            stmt.setString(2, numeroTarjeta); // 00148023 Establecer número de tarjeta en la consulta
+            stmt.setString(2, numeroTarjeta); // 00148023 Establecer numero de tarjeta en la consulta
             stmt.setString(3, tipoTarjeta); // 00148023 Establecer tipo de tarjeta en la consulta
             stmt.setString(4, facilitador); // 00148023 Establecer facilitador en la consulta
             stmt.executeUpdate(); // 00148023 Ejecutar la consulta
         } catch (SQLException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción SQL
+            e.printStackTrace(); // 00148023 Manejo de excepcion SQL
         }
     }
 
     private void actualizarTarjeta(String idCliente, String tipoTarjeta, String numeroTarjeta, String facilitador) {
         // 00148023 Consulta SQL para actualizar una tarjeta existente
         String query = "UPDATE Tarjeta SET tipo_tarjeta = ?, facilitador = ?, fecha_expiracion = '2025-12-31' WHERE id_cliente = ? AND numero_tarjeta = ?";
-        try (Connection conn = db.getConnection(); // 00148023 Obtener conexión a la base de datos
+        try (Connection conn = db.getConnection(); // 00148023 Obtener conexion a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00148023 Preparar la consulta SQL
             stmt.setString(1, tipoTarjeta); // 00148023 Establecer tipo de tarjeta en la consulta
             stmt.setString(2, facilitador); // 00148023 Establecer facilitador en la consulta
             stmt.setInt(3, Integer.parseInt(idCliente)); // 00148023 Establecer ID del cliente en la consulta
-            stmt.setString(4, numeroTarjeta); // 00148023 Establecer número de tarjeta en la consulta
+            stmt.setString(4, numeroTarjeta); // 00148023 Establecer numero de tarjeta en la consulta
             stmt.executeUpdate(); // 00148023 Ejecutar la consulta
         } catch (SQLException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción SQL
+            e.printStackTrace(); // 00148023 Manejo de excepcion SQL
         }
     }
 
     private boolean insertarCompra(String idCliente, String montoTotal, String descripcion, String fechaCompra, String numeroTarjeta) {
         // 00148023 Consulta SQL para insertar una nueva compra
         String query = "INSERT INTO Compra (id_cliente, id_tarjeta, fecha_compra, monto_total, descripcion) VALUES (?, (SELECT id_tarjeta FROM Tarjeta WHERE numero_tarjeta = ?), ?, ?, ?)";
-        try (Connection conn = db.getConnection(); // 00148023 Obtener conexión a la base de datos
+        try (Connection conn = db.getConnection(); // 00148023 Obtener conexion a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00148023 Preparar la consulta SQL
             stmt.setInt(1, Integer.parseInt(idCliente)); // 00148023 Establecer ID del cliente en la consulta
-            stmt.setString(2, numeroTarjeta); // 00148023 Establecer número de tarjeta en la consulta
+            stmt.setString(2, numeroTarjeta); // 00148023 Establecer numero de tarjeta en la consulta
             stmt.setString(3, fechaCompra); // 00148023 Establecer fecha de compra en la consulta
             stmt.setDouble(4, Double.parseDouble(montoTotal)); // 00148023 Establecer monto total en la consulta
-            stmt.setString(5, descripcion); // 00148023 Establecer descripción en la consulta
+            stmt.setString(5, descripcion); // 00148023 Establecer descripcion en la consulta
             stmt.executeUpdate(); // 00148023 Ejecutar la consulta
-            // 00148023 Mostrar alerta de éxito
+            // 00148023 Mostrar alerta de exito
             showAlert("Compra Realizada", "La compra se ha realizado exitosamente.");
             return true; // 00148023 Retornar verdadero si la compra fue exitosa
         } catch (SQLException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción SQL
+            e.printStackTrace(); // 00148023 Manejo de excepcion SQL
             // 00148023 Mostrar alerta de error
             showAlert("Error", "Ocurrio un error al realizar la compra. Revise los datos ingresados.");
-            return false; // 00148023 Retornar falso si la compra falló
+            return false; // 00148023 Retornar falso si la compra fallo
         }
     }
 
@@ -236,19 +236,19 @@ public class CompraOnlineController {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             // 00148023 Escribir el contenido del reporte en el archivo
             writer.write(reportContent);
-            // 00148023 Mostrar alerta de éxito
+            // 00148023 Mostrar alerta de exito
             showAlert("Reporte Generado", "El reporte de la compra se ha generado y esta ubicado en su escritorio:\n" + fileName);
         } catch (IOException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción de IO
+            e.printStackTrace(); // 00148023 Manejo de excepcion de IO
             // 00148023 Mostrar alerta de error
             showAlert("Error", "Ocurrio un error al generar el reporte. Revise los datos ingresados: " + e.getMessage());
         }
     }
 
     private void showAlert(String title, String content) {
-        // 00148023 Crear y mostrar una alerta de información
+        // 00148023 Crear y mostrar una alerta de informacion
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title); // 00148023 Establecer el título de la alerta
+        alert.setTitle(title); // 00148023 Establecer el titulo de la alerta
         alert.setHeaderText(null); // 00148023 Establecer el encabezado de la alerta
         alert.setContentText(content); // 00148023 Establecer el contenido de la alerta
         alert.showAndWait(); // 00148023 Mostrar la alerta y esperar a que el usuario la cierre
@@ -257,24 +257,24 @@ public class CompraOnlineController {
     @FXML
     public void returnToMainMenu() {
         try {
-            // 00148023 Cargar el archivo FXML del menú principal
+            // 00148023 Cargar el archivo FXML del menu principal
             Parent root = FXMLLoader.load(getClass().getResource("MenuPrincipal.fxml"));
-            // 00148023 Crear y mostrar una nueva escena del menú principal
+            // 00148023 Crear y mostrar una nueva escena del menu principal
             Stage stage = new Stage();
-            stage.setTitle("Banco Nacional de Nlogonia"); // 00148023 Establecer el título de la ventana
+            stage.setTitle("Banco Nacional de Nlogonia"); // 00148023 Establecer el titulo de la ventana
             stage.setScene(new Scene(root, 1268, 1000)); // 00148023 Establecer la escena principal
             stage.setResizable(false); // 00148023 Hacer la ventana no redimensionable
             stage.show(); // 00148023 Mostrar la ventana principal
             // 00148023 Cerrar la ventana actual
             closeCurrentWindow();
         } catch (IOException e) {
-            e.printStackTrace(); // 00148023 Manejo de excepción de IO
+            e.printStackTrace(); // 00148023 Manejo de excepcion de IO
         }
     }
 
     @FXML
     public void closeApplication() {
-        // 00148023 Cerrar la aplicación
+        // 00148023 Cerrar la aplicacion
         System.exit(0);
     }
 
