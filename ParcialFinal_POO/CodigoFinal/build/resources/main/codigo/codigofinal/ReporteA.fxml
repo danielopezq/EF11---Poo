@@ -8,15 +8,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javax.swing.text.html.ImageView?>
-<?import java.awt.Image?>
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.ReporteAController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codigo.codigofinal.ReporteAController">
     <children>
-        <ImageView fitHeight="1000.0" fitWidth="1268.0" opacity="0.69">
+        <ImageView fitHeight="1000.0" fitWidth="1268.0" opacity="0.71">
             <image>
                 <Image url="@../../Imagenes/logo.jpg" />
             </image>
@@ -27,26 +26,37 @@
             </padding>
             <GridPane alignment="CENTER" hgap="20.0" vgap="20.0">
                 <children>
-                    <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-font-family: 'Arial';" text="Complete los campos:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                    <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-font-family: 'Arial'; -fx-text-fill: #005f6b;" text="Complete los campos:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                     <Label style="-fx-font-size: 24px; -fx-font-family: 'Arial';" text="ID Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <TextField fx:id="idClienteField" style="-fx-pref-width: 400px; -fx-pref-height: 40px; -fx-font-size: 24px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <TextField fx:id="idClienteField" style="-fx-pref-width: 400px; -fx-pref-height: 40px; -fx-font-size: 24px; -fx-border-color: #005f6b; -fx-border-width: 1; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Label style="-fx-font-size: 24px; -fx-font-family: 'Arial';" text="Primera Fecha:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <TextField fx:id="primerafechaField" style="-fx-pref-width: 400px; -fx-pref-height: 40px; -fx-font-size: 24px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label style="-fx-font-size: 24px; -fx-font-family: 'Arial';" text=" Segunda Fecha:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                    <TextField fx:id="segundafechaField" style="-fx-pref-width: 400px; -fx-pref-height: 40px; -fx-font-size: 24px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <Button fx:id="generarReporteButton" style="-fx-font-size: 24px; -fx-pref-width: 250px; -fx-pref-height: 50px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Arial';" text="Generar Reporte" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <TextField fx:id="primerafechaField" style="-fx-pref-width: 400px; -fx-pref-height: 40px; -fx-font-size: 24px; -fx-border-color: #005f6b; -fx-border-width: 1; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label style="-fx-font-size: 24px; -fx-font-family: 'Arial';" text="Segunda Fecha:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="segundafechaField" style="-fx-pref-width: 400px; -fx-pref-height: 40px; -fx-font-size: 24px; -fx-border-color: #005f6b; -fx-border-width: 1; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <HBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                        <children>
+                            <Button fx:id="generarReporteButton" style="-fx-font-size: 24px; -fx-pref-width: 250px; -fx-pref-height: 50px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Arial'; -fx-border-color: #005f6b; -fx-border-width: 2;" text="Generar Reporte" />
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                        <children>
+                            <Button onAction="#returnToMainMenu" style="-fx-font-size: 18px; -fx-pref-width: 250px; -fx-pref-height: 50px; -fx-background-color: #005f6b; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2;" text="Volver al Menú" />
+                            <Button onAction="#closeApplication" style="-fx-font-size: 18px; -fx-pref-width: 250px; -fx-pref-height: 50px; -fx-background-color: #FF0000; -fx-text-fill: white; -fx-border-color: #000000; -fx-border-width: 2;" text="Cerrar Programa" />
+                        </children>
+                    </HBox>
                 </children>
-            <columnConstraints>
-               <ColumnConstraints />
-               <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-            </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
             </GridPane>
         </VBox>
     </children>
