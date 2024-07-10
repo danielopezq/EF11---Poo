@@ -86,7 +86,13 @@ public class ReporteAController { // 00043823 Nombre de la clase.
     private List<Compra> comprasRealizadasEnPeriodo(String idCliente, String primerafecha, String segundafecha) { // 00043823 Metodo comprasRealizadasEnPeriodo con los parametros que el usuario introducirá en la ventana.
         List<Compra> compras = new ArrayList<>(); // 00043823 Se crea la variable compras que será una lista de tipo de la clase Compras.
 
-        String query = "SELECT id_compra, fecha_compra, monto_total, descripcion FROM Compra WHERE id_cliente = ? AND fecha_compra BETWEEN ? AND ?"; // 00043823 Se define la consulta que nos dará el resultado que queremos, así como en SQL Server.
+        String query = "SELECT c.id_compra, c.fecha_compra, c.monto_total, c.descripcion \" +\n" +
+                "                       \"FROM Compra c \" +\n" +
+                "                       \"INNER JOIN Cliente cl ON c.id_cliente = cl.id_cliente \" +\n" +
+                "                       \"INNER JOIN Tarjeta t ON c.id_tarjeta = t.id_tarjeta \" +\n" +
+                "                       \"WHERE c.id_cliente = ? \" +\n" +
+                "                       \"AND c.fecha_compra BETWEEN ? AND ? \" +\n" +
+                "                       \"ORDER BY c.fecha_compra\""; // 00043823 Se define la consulta que nos dará el resultado que queremos, así como en SQL Server.
 
         try (Connection conn = db.getConnection(); // 00043823 Se inicia el try y se crea la variable de tipo Connection que tendrá el método getConnection() de la clase DatabaseConnection.
              PreparedStatement stmt = conn.prepareStatement(query)) { // 00043823 Prepara la consulta SQL.
